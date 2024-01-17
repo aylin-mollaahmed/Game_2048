@@ -1,0 +1,11 @@
+﻿  Game_2048.cpp
+C:\Users\Aylin\source\repos\Game_2048\Game_2048\validation.h(2,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+C:\Users\Aylin\source\repos\Game_2048\Game_2048\Game_2048.cpp(80,17): warning C4305: '=': truncation from 'int' to 'char'
+C:\Users\Aylin\source\repos\Game_2048\Game_2048\Game_2048.cpp(80,17): warning C4309: '=': truncation of constant value
+C:\Users\Aylin\source\repos\Game_2048\Game_2048\Game_2048.cpp(176,9): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Aylin\source\repos\Game_2048\Game_2048\Game_2048.cpp(323,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\Aylin\source\repos\Game_2048\Game_2048\Game_2048.cpp(392,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Aylin\source\repos\Game_2048\Game_2048\Game_2048.cpp(414,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Aylin\source\repos\Game_2048\Game_2048\Game_2048.cpp(472,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Aylin\source\repos\Game_2048\Game_2048\Game_2048.cpp(502,16): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Game_2048.vcxproj -> C:\Users\Aylin\source\repos\Game_2048\x64\Debug\Game_2048.exe
