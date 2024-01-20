@@ -7,9 +7,9 @@ using namespace std;
 void printEnteringMenu() {
 	cout << "Hello, are you ready to play?" << endl << endl;
 	cout << "Please choose from the menu." << endl << endl;
-	std::cout << "1. Start game" << endl;
-	std::cout << "2. Leaderboard" << endl;
-	std::cout << "3. Quit" << endl << endl;
+	cout << "1. Start game" << endl;
+	cout << "2. Leaderboard" << endl;
+	cout << "3. Quit" << endl << endl;
 }
 
 //input functions
@@ -198,7 +198,7 @@ void updateLeaderboard(size_t dimension, char* name, size_t score)
 			leaderboardFile.getline(buffer, BUFFER_SIZE);
 			scores[i] = parseNum(buffer);
 			leaderboardFile.getline(names[i], BUFFER_SIZE);
-			if (strCmp(names[i], name) == 0)
+			if (strCmp(name,names[i]) == 0)
 			{
 				shouldAdd = false;
 				if (score > scores[i])
@@ -213,7 +213,7 @@ void updateLeaderboard(size_t dimension, char* name, size_t score)
 
 	if (shouldAdd)
 	{
-		strCpy(names[count], name);
+		strCpy(name,names[count]);
 		scores[count] = score;
 		count++;
 	}
@@ -266,12 +266,12 @@ void leaderboardMenu()
 		}
 
 		leaderboardFile.close();
-		std::cout << "---------" << std::endl << std::endl;
+		cout << "---------" << std::endl << std::endl;
 	}
 	else
 	{
-		std::cout << "No leaderboard for the current dimension selected." <<
-			std::endl << std::endl;
+		cout << "No leaderboard for the current dimension selected." <<
+		cout<<endl << endl;
 	}
 
 	delete[] fileName;
