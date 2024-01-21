@@ -27,13 +27,16 @@ size_t** createMatrix(size_t n)
 
 	return matrix;
 }
+bool isValidIndex(int index, int dimension) {
+	return index < dimension;
+}
 bool hasSameNeighbours(size_t** board, size_t dimension) {
 	for (size_t i = 0; i < dimension; i++)
 	{
 		for (size_t j = 0; j < dimension; j++)
 		{
-			if ((j + 1 < dimension && board[i][j] == board[i][j + 1]) ||
-				(i + 1 < dimension && board[i][j] == board[i + 1][j]))
+			if ((isValidIndex(j+1,dimension) && board[i][j] == board[i][j + 1]) ||
+				(isValidIndex(i+ 1, dimension) < dimension && board[i][j] == board[i + 1][j]))
 			{
 				return true;
 			}
@@ -42,7 +45,7 @@ bool hasSameNeighbours(size_t** board, size_t dimension) {
 
 	return false;
 }
-bool hasEmptySpace(size_t** board, size_t dimension)
+bool hasEmptyCell(size_t** board, size_t dimension)
 {
 	for (size_t row = 0; row < dimension; row++)
 	{
@@ -59,7 +62,7 @@ bool hasEmptySpace(size_t** board, size_t dimension)
 }
 bool isMovePossible(size_t** board, size_t dimension)
 {
-	return hasEmptySpace(board, dimension) || hasSameNeighbours(board, dimension);
+	return hasEmptyCell (board, dimension) || hasSameNeighbours(board, dimension);
 }
 void generateRandom(size_t** board, size_t dimension, size_t& currentScore)
 {
@@ -108,44 +111,44 @@ void printBoard(size_t** board, size_t rows)
 }
 void moveUp(size_t** board, size_t dimension)
 {
-	for (size_t col = 0; col < dimension; col++)
+	for (size_t row = 0; row < dimension; row++)
 	{
-		size_t toMove = 0;
-		for (size_t row = 0; row < dimension; row++)
-		{
-			if (board[row][col] == 0)
-			{
-				continue;
-			}
 
-			board[toMove][col] = board[row][col];
-			if (row != toMove)
+		for (size_t col = 0; col < dimension; col++)
+		{
+			int index = 1;
+			if (board[row][col] != 0)
 			{
-				board[row][col] = 0;
+
+				while (isIndexValid(row - index, dimension) && board[row - index][col] == 0)
+				{
+					board[row - index][col] = board[row - index + 1][col];
+					board[row - index + 1][col] = 0;
+					index++;
+				}
 			}
-			toMove++;
 		}
 	}
 }
 
 void moveDown(size_t** board, size_t dimension)
 {
-	for (size_t col = 0; col < dimension; col++)
+	for (int row = dimension - 1; row >= 0; row--)
 	{
-		size_t toMove = dimension - 1;
-		for (int row = dimension - 1; row >= 0; row--)
-		{
-			if (board[row][col] == 0)
-			{
-				continue;
-			}
 
-			board[toMove][col] = board[row][col];
-			if (row != toMove)
+		for (size_t col = 0; col < dimension; col++)
+		{
+			int index = 1;
+			if (board[row][col] != 0)
 			{
-				board[row][col] = 0;
+
+				while (isIndexValid(row + index, dimension) && board[row + index][col] == 0)
+				{
+					board[row + index][col] = board[row + index - 1][col];
+					board[row + index - 1][col] = 0;
+					index++;
+				}
 			}
-			toMove--;
 		}
 	}
 }
@@ -154,20 +157,20 @@ void moveRight(size_t** board, size_t dimension)
 {
 	for (size_t row = 0; row < dimension; row++)
 	{
-		size_t toMove = dimension - 1;
-		for (int col = dimension - 1; col >= 0; col--)
-		{
-			if (board[row][col] == 0)
-			{
-				continue;
-			}
 
-			board[row][toMove] = board[row][col];
-			if (col != toMove)
+		for (int col = dimension-1; col >=0 ; col--)
+		{
+			int index = 1;
+			if (board[row][col] != 0)
 			{
-				board[row][col] = 0;
+
+				while (isIndexValid(col + index, dimension) && board[row ][col+ index] == 0)
+				{
+					board[row ][col+index] = board[row ][col + index - 1];
+					board[row][col + index - 1] = 0;
+					index++;
+				}
 			}
-			toMove--;
 		}
 	}
 }
@@ -176,86 +179,104 @@ void moveLeft(size_t** board, size_t dimension)
 {
 	for (size_t row = 0; row < dimension; row++)
 	{
-		size_t toMove = 0;
+
 		for (size_t col = 0; col < dimension; col++)
 		{
-			if (board[row][col] == 0)
+			int index = 1;
+			if (board[row][col] != 0)
 			{
-				continue;
-			}
 
-			board[row][toMove] = board[row][col];
-			if (col != toMove)
-			{
-				board[row][col] = 0;
+				while (isIndexValid(col - index, dimension) && board[row][col - index] == 0)
+				{
+					board[row][col - index] = board[row][col - index + 1];
+					board[row][col - index + 1] = 0;
+					index++;
+				}
 			}
-			toMove++;
 		}
 	}
 }
+void checkForSameNumbersAfterMovingUp(size_t** board, size_t dimension) {
+	for (int row = 0; row < dimension ; row++)
+	{
 
+		for (size_t col = 0; col < dimension; col++)
+		{
+			if (isIndexValid(row + 1, dimension) && board[row + 1][col] == board[row][col])
+			{
+				board[row][col] *= 2;
+				board[row+1][col] = 0;
+			}
+
+		}
+	}
+}
+void checkForSameNumbersAfterMovingDown(size_t** board, size_t dimension) {
+	for (int row = dimension-1; row >=0; row--)
+	{
+
+		for (size_t col = 0; col < dimension; col++)
+		{
+			if (isIndexValid(row - 1, dimension) && board[row - 1][col] == board[row][col])
+			{
+				board[row][col] *= 2;
+				board[row -1][col] = 0;
+			}
+
+		}
+	}
+}
+void checkForSameNumbersAfterMovingLeft(size_t** board, size_t dimension) {
+	for (size_t row = 0; row < dimension; row++)
+	{
+
+		for (size_t col = 0; col < dimension; col++)
+		{
+			if (isIndexValid(col+ 1, dimension) && board[row ][col+1] == board[row][col])
+			{
+				board[row][col] *= 2;
+				board[row][col+1] = 0;
+			}
+
+		}
+	}
+}
+void checkForSameNumbersAfterMovingRight(size_t** board, size_t dimension) {
+	for (size_t row = 0; row < dimension; row++)
+	{
+
+		for (int col = dimension - 1; col >=0 ; col--)
+		{
+			if (isIndexValid(col - 1, dimension) && board[row][col - 1] == board[row][col])
+			{
+				board[row][col] *= 2;
+				board[row][col - 1] = 0;
+			}
+
+		}
+	}
+}
 void move(size_t** board, size_t dimension, char direction) {
 	switch (direction)
 	{
 	case MOVE_UP:
 		moveUp(board, dimension);
-		for (size_t row = 0; row < dimension - 1; row++)
-		{
-			for (size_t col = 0; col < dimension; col++)
-			{
-				if (board[row][col] == board[row + 1][col] ||
-					board[row][col] == 0)
-				{
-					board[row][col] += board[row + 1][col];
-					board[row + 1][col] = 0;
-				}
-			}
-		}
+		checkForSameNumbersAfterMovingUp(board, dimension);
 		moveUp(board, dimension);
 		break;
 	case MOVE_DOWN:
 		moveDown(board, dimension);
-		for (int row = dimension - 1; row > 0; row--)
-		{
-			for (size_t col = 0; col < dimension; col++)
-			{
-				if (board[row][col] == board[row - 1][col]||board[row][col] == 0)
-				{
-					board[row][col] += board[row - 1][col];
-					board[row - 1][col] = 0;
-				}
-			}
-		}
+		checkForSameNumbersAfterMovingDown(board, dimension);
 		moveDown(board, dimension);
 		break;
 	case MOVE_LEFT:
 		moveLeft(board, dimension);
-		for (size_t col = 0; col < dimension - 1; col++)
-		{
-			for (size_t row = 0; row < dimension; row++)
-			{
-				if (board[row][col] == board[row][col + 1] || board[row][col] == 0)
-				{
-					board[row][col] += board[row][col + 1];
-					board[row][col + 1] = 0;
-				}
-			}
-		}
+		checkForSameNumbersAfterMovingLeft(board, dimension);
 		moveLeft(board, dimension);
 		break;
 	case MOVE_RIGHT:
 		moveRight(board, dimension);
-		for (int col = dimension - 1; col > 0; col--)
-		{
-			for (size_t row = 0; row < dimension; row++)
-			{
-				if (board[row][col] == board[row][col - 1] || board[row][col] == 0)
-				{
-					board[row][col] += board[row][col - 1];
-					board[row][col - 1] = 0;
-				}
-			}
-		}
+		checkForSameNumbersAfterMovingRight(board, dimension);
 		moveRight(board, dimension);
 		break;
 

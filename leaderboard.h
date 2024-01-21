@@ -1,6 +1,6 @@
 /**
 *
-* Solution to course project # <номер на вариант>
+* Solution to course project #4
 * Introduction to programming course
 * Faculty of Mathematics and Informatics of Sofia University
 * Winter semester 2023/2024
@@ -9,7 +9,7 @@
 * @idnumber 3MI0600281
 * @compiler VC
 *
-* leadeboard functions
+* leaderboard functions
 *
 */
 #pragma once
@@ -23,7 +23,7 @@ void swapInteger(size_t& first, size_t& second) {
 	first = second;
 	second = temp;
 }
-void swap(char first[], char second[]) {
+void swapStrings(char first[], char second[]) {
 	char* temp = new char[strLen(first) + 1];
 	strCpy(temp, first);
 	strCpy(first, second);
@@ -46,7 +46,7 @@ void selectionSort(size_t count, size_t scores[], char names[MAX_PLAYERS_LEADERB
 		if (maxInd != i)
 		{
 			swapInteger(scores[i], scores[maxInd]);
-			swap(names[i], names[maxInd]);
+			swapStrings(names[i], names[maxInd]);
 		}
 	}
 }
@@ -193,7 +193,7 @@ void leaderboardMenu()
 		}
 
 		leaderboardFile.close();
-		cout << "---------" << std::endl << std::endl;
+		cout << endl << endl;
 	}
 	else
 	{

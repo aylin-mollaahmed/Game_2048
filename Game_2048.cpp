@@ -1,6 +1,6 @@
 /**
 *
-* Solution to course project # <номер на вариант>
+* Solution to course project #4
 * Introduction to programming course
 * Faculty of Mathematics and Informatics of Sofia University
 * Winter semester 2023/2024
@@ -48,7 +48,7 @@ void play() {
 		cout << endl << "Enter direction: ";
 		char direction = inputDirectionChoice();
 		move(board, dimension, direction);
-		if (hasEmptySpace(board, dimension))
+		if (hasEmptyCell(board, dimension))
 		{
 			generateRandom(board, dimension, score);
 		}
