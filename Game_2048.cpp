@@ -1,3 +1,20 @@
+/**
+*
+* Solution to course project # <номер на вариант>
+* Introduction to programming course
+* Faculty of Mathematics and Informatics of Sofia University
+* Winter semester 2023/2024
+*
+* @author Aylin Mollaahmed
+* @idnumber 3MI0600281
+* @compiler VC
+*
+* Body of the game
+*
+*/
+
+
+
 #include <iostream>
 #include <fstream>
 #include "constants.h"
