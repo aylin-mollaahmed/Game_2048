@@ -130,8 +130,11 @@
     <ClCompile Include="Game_2048.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="boardMoves.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="leaderboard.h" />
+    <ClInclude Include="stringFunctions.h" />
     <ClInclude Include="validation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
