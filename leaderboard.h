@@ -154,7 +154,7 @@ void updateLeaderboard(size_t dimension, char* name, size_t score)
 	ofstream leaderboardFileOut(fileName);
 	if (leaderboardFileOut.is_open())
 	{
-		leaderboardFileOut << count << std::endl;
+		leaderboardFileOut << count << endl;
 		for (size_t i = 0; i < count; i++)
 		{
 			leaderboardFileOut << scores[i] << endl;
